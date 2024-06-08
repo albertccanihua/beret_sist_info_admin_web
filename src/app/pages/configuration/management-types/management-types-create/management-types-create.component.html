@@ -1,0 +1,68 @@
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-outlined"
+        routerLink="/configuration/management-types"></button>
+    <h3>Registrar nuevo Tipo</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="card p-fluid mt-3">
+                <form [formGroup]="createManagementTypeForm">
+                    <div class="grid p-fluid mt-1">
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-dropdown formControlName="type" inputId="drpType"
+                                    [options]="types" optionLabel="name" optionValue="id"></p-dropdown>
+                                <label>Tipo de dato <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createManagementTypeForm.controls['type'].invalid &&
+                            (isFormSubmitted || createManagementTypeForm.controls['type'].touched
+                            || createManagementTypeForm.controls['type'].dirty)) {
+                            <small class="ng-dirty ng-invalid">
+                                @if(createManagementTypeForm.controls['type'].errors?.['required']){
+                                <span class="text-danger">El campo es requerido.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtName" pInputText formControlName="name" />
+                                <label for="txtName">Nombre <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createManagementTypeForm.controls['name'].invalid &&
+                            (isFormSubmitted || createManagementTypeForm.controls['name'].touched
+                            || createManagementTypeForm.controls['name'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createManagementTypeForm.controls['name'].errors?.['required']){
+                                <span class="text-danger">El campo es requerido.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                        <div class="field col-12">
+                            <span class="p-float-label">
+                                <textarea inputId="txtDescripcion" rows="3" cols="30" pInputTextarea
+                                    formControlName="description"></textarea>
+                                <label for="txtDescripcion">Descripción</label>
+                            </span>
+                            @if(createManagementTypeForm.controls['description'].invalid &&
+                            (isFormSubmitted || createManagementTypeForm.controls['description'].touched
+                            || createManagementTypeForm.controls['description'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createManagementTypeForm.controls['description'].errors?.['maxlength']){
+                                <span class="text-danger">El máximo de caracteres es de 250.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="flex justify-content-center">
+                <p-button icon="pi pi-save" [loading]="isFormLoading" label="Guardar" class="mr-1"
+                    (click)="submitForm()" [disabled]="isFormLoading"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

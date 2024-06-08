@@ -1,0 +1,53 @@
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <h3>Consulta de Pacientes</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="mt-2 mb-2">
+                <div class="card">
+                    <div class="grid">
+                        <div class="xl:col-3 lg:col-4 md:col-4 sm:col-6 col-12">
+                            <input type="text" pInputText placeholder="Documento" class="w-full"
+                                [(ngModel)]="documentNumberFilter" />
+                        </div>
+                        <div class="xl:col-6 lg:col-12 md:col-12 sm:col-12 col-12">
+                            <p-button icon="pi pi-search" label="Buscar" class="mr-1" (click)="onSearch()"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <p-table [value]="treatments" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>PACIENTE</th>
+                            <th>TRATAMIENTO</th>
+                            <th>CÓDIGO</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-treatment>
+                        <tr>
+                            <td>{{ treatment?.patient?.name + ' ' + treatment?.patient?.paternal_surname }}</td>
+                            <td>{{ treatment?.name }}</td>
+                            <td>{{ treatment?.code }}</td>
+                            <td>
+                                <span
+                                    [class]="'customer-badge status-qualified'">{{treatment?.type_status_treatment?.name}}</span>
+                            </td>
+                            <td>
+
+                                <button pButton pRipple type="button" icon="pi pi-eye"
+                                    class="p-button-rounded p-button-secondary p-button-text"
+                                    pTooltip="Ver detalle de paciente" tooltipPosition="bottom"
+                                    [routerLink]="['/patients/requests/view', treatment.id]"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

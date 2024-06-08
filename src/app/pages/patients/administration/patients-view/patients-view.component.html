@@ -1,0 +1,101 @@
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-outlined"
+            routerLink="/patients/administration"></button>
+    <h3>
+        Detalle de Paciente
+
+        @if (showUserForm.status === true) {
+        <span [class]="'customer-badge status-qualified ml-3'">Activo</span>
+        }@else {
+        <span [class]="'customer-badge status-unqualified ml-3'">Inactivo</span>
+        }
+    </h3>
+
+    <div class="grid">
+        <div class="col-12">
+            <div class="card p-fluid mt-3">
+                <div class="grid p-fluid mt-1">
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-dropdown [(ngModel)]="showUserForm.type_document.id" inputId="drpTypeDocument"
+                                            [options]="typeDocuments"
+                                            optionLabel="name" optionValue="id" [readonly]="true"></p-dropdown>
+                                <label>Tipo de documento</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input [(ngModel)]="showUserForm.document_number" type="text" id="txtDocumentNumber"
+                                       pInputText
+                                       [readOnly]="true"/>
+                                <label for="txtDocumentNumber">N° de documento</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input [(ngModel)]="showUserForm.name" type="text" id="txtName" pInputText
+                                       [readonly]="true"/>
+                                <label for="txtName">Nombre</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input [(ngModel)]="showUserForm.paternal_surname" type="text" id="txtPaternalSurname"
+                                       pInputText
+                                       [readonly]="true"/>
+                                <label for="txtPaternalSurname">Apellido paterno</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input [(ngModel)]="showUserForm.maternal_lastname" type="text"
+                                       id="txtMaternalLastname" pInputText
+                                       [readonly]="true"/>
+                                <label for="txtMaternalLastname">Apellido materno</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-inputMask [(ngModel)]="showUserForm.dob" mask="99/99/9999" inputId="txtDob"
+                                             [readonly]="true"></p-inputMask>
+                                <label>Fecha de nacimiento</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input [(ngModel)]="showUserForm.email" type="text" id="txtEmail" pInputText
+                                       [readonly]="true"/>
+                                <label for="txtEmail">Correo electrónico:</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input [(ngModel)]="showUserForm.phone_number" type="text" id="txtPhoneNumber"
+                                       pInputText
+                                       [readonly]="true"/>
+                                <label for="txtPhoneNumber">Número de teléfono:</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-dropdown [(ngModel)]="showUserForm.type_gender.id" inputId="drpTypeGender"
+                                            [options]="typeGenders"
+                                            optionLabel="name" optionValue="id" [readonly]="true"></p-dropdown>
+                                <label>Genero</label>
+                            </span>
+                    </div>
+                    <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-dropdown [(ngModel)]="showUserForm.type_financing.id" inputId="drpTypeRole"
+                                            [options]="typeFinancing"
+                                            optionLabel="name" optionValue="id" [readonly]="true"></p-dropdown>
+                                <label>Rol</label>
+                            </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

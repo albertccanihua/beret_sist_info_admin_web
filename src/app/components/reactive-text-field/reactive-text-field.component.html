@@ -1,0 +1,30 @@
+<div [formGroup]="formGroupDirective.form">
+    <span class="p-float-label">
+        <input type="text" id="inputtext" pInputText [formControlName]="formControlName" />
+        <label for="inputtext">
+            {{label}}
+            @if(required === true){<span class="text-danger">(*)</span>}
+        </label>
+    </span>
+    @if(formGroupDirective.control.get(formControlName).invalid &&
+    (formGroupDirective.control.get(formControlName).touched
+    || formGroupDirective.control.get(formControlName).dirty)){
+    <small class="ng-dirty ng-invalid">
+        @if(formGroupDirective.control.get(formControlName).errors?.['required']){
+        <span class="text-danger">El campo es requerido</span>
+        }
+        @if(formGroupDirective.control.get(formControlName).errors?.['minlength']){
+        <span class="text-danger">
+            @if(minLength === null){ El valor ingresado no cumple los digitos }
+            @else {El minimo de caracteres es de {{minLength}} digitos}
+        </span>
+        }
+        @if(formGroupDirective.control.get(formControlName).errors?.['maxlength']){
+        <span class="text-danger">
+            @if(maxLength === null){ El valor ingresado no cumple los digitos }
+            @else {El máximo de caracteres es de {{maxLength}} digitos}
+        </span>
+        }
+    </small>
+    }
+</div>

@@ -1,0 +1,101 @@
+<script src="patients-list.component.ts"></script>
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <h3>Administración de Pacientes</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="mt-2 mb-2">
+                <div class="card">
+                    <div class="grid">
+                        <div class="xl:col-3 lg:col-4 md:col-4 sm:col-6 col-12">
+                            <input type="text" pInputText placeholder="Documento" class="w-full"
+                                   [(ngModel)]="patientFilters.document_number"/>
+                        </div>
+                        <div class="xl:col-3 lg:col-4 md:col-4 sm:col-6 col-12">
+                            <input type="text" pInputText placeholder="Nombre" class="w-full"
+                                   [(ngModel)]="patientFilters.name"/>
+                        </div>
+                        <div class="xl:col-3 lg:col-4 md:col-4 sm:col-6 col-12">
+                            <input type="text" pInputText placeholder="Apellido paterno" class="w-full"
+                                   [(ngModel)]="patientFilters.paternal_surname"/>
+                        </div>
+                        <div class="xl:col-3 lg:col-4 md:col-4 sm:col-6 col-12">
+                            <p-dropdown inputId="drpTypeRole"
+                                        placeholder="Tipo de documento" [style]="{'minWidth':'100%'}"
+                                        [options]="typeDocuments"
+                                        optionLabel="name" optionValue="id"
+                                        [(ngModel)]="patientFilters.type_document"></p-dropdown>
+                        </div>
+                        <div class="xl:col-3 lg:col-4 md:col-4 sm:col-6 col-12">
+                            <p-dropdown inputId="drpTypeRole"
+                                        placeholder="Financiamiento" [style]="{'minWidth':'100%'}"
+                                        [options]="typeFinancing"
+                                        optionLabel="name" optionValue="id"
+                                        [(ngModel)]="patientFilters.type_financing"></p-dropdown>
+                        </div>
+                        <div class="xl:col-6 lg:col-12 md:col-12 sm:col-12 col-12">
+                            <p-button icon="pi pi-search" label="Buscar" class="mr-1" (click)="onSearch()"></p-button>
+                            <p-button icon="pi pi-plus" [routerLink]="['/patients/administration/create']"
+                                      label="Registrar paciente" class="mr-1"></p-button>
+                            <p-button icon="pi pi-filter-slash" class="mr-1" [rounded]="true" [text]="true"
+                                      pTooltip="Limpiar filtros" tooltipPosition="bottom"
+                                      (click)="onFilterReset()"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <p-table [value]="patients.data" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>PACIENTE</th>
+                            <th>DOCUMENTO</th>
+                            <th>FINANCIAMIENTO</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-patient>
+                        <tr>
+                            <td>{{ patient?.name + ' ' + patient?.paternal_surname }}</td>
+                            <td>{{ patient?.type_document?.name + ' ' + patient?.document_number }}</td>
+                            <td>{{ patient?.type_financing?.name }}</td>
+                            @if (patient.status === true) {
+                            <td>
+                                <span [class]="'customer-badge status-qualified'">Activo</span>
+                            </td>
+                            }@else {
+                            <td>
+                                <span [class]="'customer-badge status-unqualified'">Inactivo</span>
+                            </td>
+                            }
+                            <td>
+                                <!-- <button pButton pRipple type="button" icon="pi pi-heart"
+                                        class="p-button-rounded p-button-danger p-button-text"
+                                        pTooltip="Asignar tratamiento" tooltipPosition="bottom"
+                                        [routerLink]="['/patients/administration/view', patient.id]"></button> -->
+                                <button pButton pRipple type="button" icon="pi pi-eye"
+                                        class="p-button-rounded p-button-secondary p-button-text"
+                                        pTooltip="Ver detalle de paciente" tooltipPosition="bottom"
+                                        [routerLink]="['/patients/administration/view', patient.id]"></button>
+                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                        class="p-button-rounded p-button-text" pTooltip="Editar paciente"
+                                        tooltipPosition="bottom"
+                                        [routerLink]="['/patients/administration/update', patient.id]"></button>
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                        class="p-button-rounded p-button-danger p-button-text"
+                                        pTooltip="Eliminar paciente" tooltipPosition="bottom"
+                                        (click)="onConfirmDeletePatient($event, patient.id)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="card flex justify-content-center">
+                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="patientFilters.limit"
+                             [totalRecords]="patients.total_data"></p-paginator>
+            </div>
+        </div>
+    </div>
+</div>

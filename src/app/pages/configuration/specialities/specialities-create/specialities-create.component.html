@@ -1,0 +1,67 @@
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-outlined"
+        routerLink="/configuration/specialities"></button>
+    <h3>Registrar nueva Especialidad</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="card p-fluid mt-3">
+                <form [formGroup]="createSpecialityForm">
+                    <div class="grid p-fluid mt-1">
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtCode" pInputText formControlName="code" />
+                                <label for="txtCode">Código <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createSpecialityForm.controls['code'].invalid &&
+                            (isFormSubmitted || createSpecialityForm.controls['code'].touched
+                            || createSpecialityForm.controls['code'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createSpecialityForm.controls['code'].errors?.['required']){
+                                <span class="text-danger">El campo es requerido.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtName" pInputText formControlName="name" />
+                                <label for="txtName">Nombre <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createSpecialityForm.controls['name'].invalid &&
+                            (isFormSubmitted || createSpecialityForm.controls['name'].touched
+                            || createSpecialityForm.controls['name'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createSpecialityForm.controls['name'].errors?.['required']){
+                                <span class="text-danger">El campo es requerido.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                        <div class="field col-12">
+                            <span class="p-float-label">
+                                <textarea inputId="txtDescripcion" rows="3" cols="30" pInputTextarea
+                                    formControlName="description"></textarea>
+                                <label for="txtDescripcion">Descripción</label>
+                            </span>
+                            @if(createSpecialityForm.controls['description'].invalid &&
+                            (isFormSubmitted || createSpecialityForm.controls['description'].touched
+                            || createSpecialityForm.controls['description'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createSpecialityForm.controls['description'].errors?.['maxlength']){
+                                <span class="text-danger">El máximo de caracteres es de 250.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="flex justify-content-center">
+                <p-button icon="pi pi-save" [loading]="isFormLoading" label="Guardar" class="mr-1"
+                    (click)="submitForm()" [disabled]="isFormLoading"></p-button>
+            </div>
+        </div>
+    </div>
+</div>

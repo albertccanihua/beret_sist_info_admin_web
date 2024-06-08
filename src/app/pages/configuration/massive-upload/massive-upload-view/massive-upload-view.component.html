@@ -1,0 +1,84 @@
+<script src="users-list.component.ts"></script>
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-outlined"
+        routerLink="/configuration/massive-upload/list"></button>
+
+
+    <h3>{{massiveUploadCreatedAt}}</h3>
+    <p>{{massiveUpload?.filename}}</p>
+
+    <br>
+    <br>
+
+    <div class="grid">
+        <div class="col-12">
+            <div class="card">
+                <p-table [value]="massiveUpload?.massive_upload_items ?? []" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>REGISTRO</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td>Registro de tratamiento {{ item.id }}</td>
+                            @if (item.status === true) {
+                            <td>
+                                <span [class]="'customer-badge status-qualified'">Ok</span>
+                            </td>
+                            }@else {
+                            <td>
+                                <span [class]="'customer-badge status-unqualified'">Error</span>
+                            </td>
+                            }
+                            <td>
+                                <button pButton pRipple type="button" icon="pi pi-eye"
+                                    class="p-button-rounded p-button-secondary p-button-text"
+                                    pTooltip="Ver detalle de usuario" tooltipPosition="bottom"
+                                    (click)="setOpen(item)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p-dialog header="Detalle de registro" [modal]="true" [(visible)]="visible" [style]="{ width: '50rem' }"
+    [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }">
+    <h5 style="margin-left:2vh;margin-top:1.5vh;">Estado</h5>
+
+
+    @if(massiveUploadItem?.status === true){
+    <p-tag style="margin-left: 30px;" severity="success" value="OK"></p-tag>
+    }
+    @else{
+    <p-tag style="margin-left: 30px;" severity="danger" value="ERROR"></p-tag>
+    }
+
+    <ul>
+        @for(reason of status; track status){
+        <li>
+            {{reason}}
+        </li>
+        }
+    </ul>
+
+    <br>
+
+    <h5 style="margin-left:2vh;margin-top:1.5vh;">Datos enviados</h5>
+
+    <ul>
+
+        @for(key of objectKeys; track objectKeys; let i = $index){
+        <li class="li">
+            <strong>{{ key }}:</strong> {{ objectValues[i] }}
+        </li>
+        }
+    </ul>
+</p-dialog>

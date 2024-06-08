@@ -1,0 +1,124 @@
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-outlined"
+        routerLink="/configuration/packets"></button>
+    <h3>Registrar nuevo Paquete</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="card p-fluid mt-3">
+                <form [formGroup]="createPacketForm">
+                    <div class="grid p-fluid mt-1">
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtName" pInputText formControlName="name" />
+                                <label for="txtName">Nombre <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createPacketForm.controls['name'].invalid &&
+                            (isFormSubmitted || createPacketForm.controls['name'].touched
+                            || createPacketForm.controls['name'].dirty)) {
+                            <small class="ng-dirty ng-invalid">
+                                @if(createPacketForm.controls['name'].errors?.['required']){
+                                <span class="text-danger">El campo es requerido.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtCode" pInputText formControlName="code" />
+                                <label for="txtCode">Código de paquete <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createPacketForm.controls['code'].invalid &&
+                            (isFormSubmitted || createPacketForm.controls['code'].touched
+                            || createPacketForm.controls['code'].dirty)) {
+                            <small class="ng-dirty ng-invalid">
+                                @if(createPacketForm.controls['code'].errors?.['required']){
+                                <span class="text-danger">El campo es requerido.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <textarea inputId="txtRelationalCodes" rows="3" cols="30" pInputTextarea
+                                    formControlName="relational_codes"></textarea>
+                                <label for="txtRelationalCodes">Códigos relacionales <span
+                                        class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createPacketForm.controls['relational_codes'].invalid &&
+                            (isFormSubmitted || createPacketForm.controls['relational_codes'].touched
+                            || createPacketForm.controls['relational_codes'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createPacketForm.controls['relational_codes'].errors?.['required']){
+                                <span class="text-danger">El campo es requerido.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <textarea inputId="txtDescription" rows="3" cols="30" pInputTextarea
+                                    formControlName="description"></textarea>
+                                <label for="txtDescription">Descripción</label>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+
+                <button pButton label="Seleccionar especialidades" class="p-button-outlined mb-4"
+                    (click)="visibleSelectSpecialitiesModal = true"></button>
+
+                @if (specialitiesSelected.length > 0) {
+                <p-table [value]="specialitiesSelected">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>ESPECIALIDAD</th>
+                            <th>SELECCIÓN</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-speciality>
+                        <tr>
+                            <td>{{ speciality.text }}</td>
+                            <td>
+                                <div class="amount-picked">
+                                    <button class="button" (click)="decreaseSession(speciality)">-</button>
+                                    <input type="text" readonly [(ngModel)]="speciality.amount">
+                                    <button class="button" (click)="incrementSession(speciality)">+</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+                }
+            </div>
+            <div class="flex justify-content-center">
+                <p-button icon="pi pi-save" [loading]="isFormLoading" label="Guardar" class="mr-1"
+                    (click)="submitForm()" [disabled]="isFormLoading"></p-button>
+            </div>
+        </div>
+    </div>
+
+    <p-dialog header="SELECCIONAR ESPECIALIDADES" [(visible)]="visibleSelectSpecialitiesModal" [modal]="true"
+        showEffect="fade" [style]="{width: '50vw'}" [breakpoints]="{'960px': '75vw'}">
+        <p-table [value]="specialities">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>ESPECIALIDAD</th>
+                    <th>SELECCIÓN</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-speciality>
+                <tr>
+                    <td>{{ speciality.text }}</td>
+                    <td>
+                        <p-checkbox [(ngModel)]="speciality.checked" [binary]="true" inputId="binary" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <ng-template pTemplate="footer">
+            <button pButton label="GUARDAR" class="p-button-outlined" (click)="selectSpecialities()"></button>
+        </ng-template>
+    </p-dialog>
+</div>

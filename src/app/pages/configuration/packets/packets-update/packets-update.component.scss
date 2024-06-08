@@ -1,0 +1,33 @@
+.amount-picked {
+    width: 124px;
+    display: flex;
+
+    input {
+        width: 50px;
+        height: 35px;
+        border: none;
+        background-color: #eee;
+        margin-left: 2px;
+        margin-right: 2px;
+        outline: none;
+        text-align: center;
+        font-size: 13pt;
+        border-radius: 5px;
+    }
+
+    .button {
+        width: 35px;
+        height: 35px;
+        font-size: 16pt;
+        outline: none;
+        border: none;
+        background-color: #eee;
+        transition: .3s all ease-in-out;
+        border-radius: 5px;
+
+        &:hover {
+            cursor: pointer;
+            background-color: #ccc;
+        }
+    }
+}

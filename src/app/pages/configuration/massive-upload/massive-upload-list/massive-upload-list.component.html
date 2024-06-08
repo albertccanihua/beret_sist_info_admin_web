@@ -1,0 +1,53 @@
+<script src="users-list.component.ts"></script>
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <h3>Carga de Datos</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="mt-2 mb-2">
+                <div class="card">
+                    <div class="grid">
+                        <div class="xl:col-6 lg:col-12 md:col-12 sm:col-12 col-12">
+                            <p-button icon="pi pi-plus" [routerLink]="['/configuration/massive-upload']"
+                                label="Registrar" class="mr-1"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <p-table [value]="massiveUploads" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>ARCHIVO</th>
+                            <th>FECHA DE CREACIÓN</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-item>
+                        <tr>
+                            <td>{{ item.filename }}</td>
+                            <td>{{ item.created_at }}</td>
+                            @if (item.status === true) {
+                            <td>
+                                <span [class]="'customer-badge status-qualified'">Activo</span>
+                            </td>
+                            }@else {
+                            <td>
+                                <span [class]="'customer-badge status-unqualified'">Inactivo</span>
+                            </td>
+                            }
+                            <td>
+                                <button pButton pRipple type="button" icon="pi pi-eye"
+                                    class="p-button-rounded p-button-secondary p-button-text"
+                                    pTooltip="Ver detalle de usuario" tooltipPosition="bottom"
+                                    [routerLink]="['/configuration/massive-upload/view', item.id]"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+        </div>
+    </div>
+</div>

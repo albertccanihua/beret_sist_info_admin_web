@@ -1,0 +1,86 @@
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-outlined"
+        routerLink="/patients/requests"></button>
+    <h3>
+        {{treatment?.patient?.name}} {{treatment?.patient?.paternal_surname}}
+        <span [class]="'customer-badge status-qualified ml-3'">{{treatment?.type_status_treatment?.name}}</span>
+    </h3>
+
+    <div class="grid mt-3">
+        <div class="col-4">
+            <div class="card">
+                <div class="grid p-fluid mt-1">
+                    <div class="field col-12">
+                        <span class="p-float-label">
+                            <input [value]="treatment?.code" type="text" id="txtTreatmentCode" pInputText
+                                [disabled]="true" />
+                            <label>Código de tratamiento</label>
+                        </span>
+                    </div>
+                    <div class="field col-12">
+                        <span class="p-float-label">
+                            <input
+                                [value]="treatment?.patient?.type_document?.name + ' ' + treatment?.patient?.document_number"
+                                type="text" id="txtDocumentNumber" pInputText [disabled]="true" />
+                            <label>Documento</label>
+                        </span>
+                    </div>
+                    <div class="field col-12">
+                        <span class="p-float-label">
+                            <input [value]="treatment?.patient?.dob" type="text" id="txtDob" pInputText
+                                [disabled]="true" />
+                            <label>Fecha de nacimiento</label>
+                        </span>
+                    </div>
+                    <div class="field col-12">
+                        <span class="p-float-label">
+                            <input [value]="treatment?.patient?.type_gender?.name" type="text" id="txtTypeGender"
+                                pInputText [disabled]="true" />
+                            <label>Sexo</label>
+                        </span>
+                    </div>
+                    <div class="field col-12">
+                        <span class="p-float-label">
+                            <input [value]="treatment?.patient?.type_financing?.name" type="text" id="txtTypeFinancing"
+                                pInputText [disabled]="true" />
+                            <label>Financiación</label>
+                        </span>
+                    </div>
+                    <div class="field col-12">
+                        <span class="p-float-label">
+                            <input [value]="treatment?.acceptance_rate + '%'" type="text" id="txtAcceptanceRate"
+                                pInputText [disabled]="true" />
+                            <label>T.A.</label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="card">
+                @for(speciality of treatment?.treatment_specialities; track speciality.id){
+                <div class="grid">
+                    <div class="col-12">
+                        <div class="card">
+                            {{speciality?.speciality?.name}} ({{speciality?.speciality?.code}})
+                        </div>
+                        <div class="grid ml-1 mr-1">
+                            @for(assistance of speciality?.treatment_assistances; track assistance.id){
+                            <div class="col-4 assistance-item">
+                                <div class="date">{{assistance?.date_care}}</div>
+                                <div class="profesional">{{assistance?.profesional?.name}}
+                                    {{assistance?.profesional?.paternal_surname}} <br>
+                                    {{assistance?.profesional?.document_number}}
+                                </div>
+                            </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

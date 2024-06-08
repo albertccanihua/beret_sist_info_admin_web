@@ -1,0 +1,67 @@
+<script src="users-list.component.ts"></script>
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <h3>Administración de Paquetes</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="mt-2 mb-2">
+                <div class="card">
+                    <div class="grid">
+                        <div class="xl:col-3 lg:col-4 md:col-4 sm:col-6 col-12">
+                            <p-dropdown inputId="drpTypeRole" placeholder="Estado" [style]="{'minWidth':'100%'}"
+                                [options]="typeStatus" optionLabel="name" optionValue="id"
+                                [(ngModel)]="packetFilters.status"></p-dropdown>
+                        </div>
+                        <div class="xl:col-6 lg:col-12 md:col-12 sm:col-12 col-12">
+                            <p-button icon="pi pi-search" label="Buscar" class="mr-1" (click)="onSearch()"></p-button>
+                            <p-button icon="pi pi-plus" [routerLink]="['/configuration/packets/create']"
+                                label="Registrar paquete" class="mr-1"></p-button>
+                            <p-button icon="pi pi-filter-slash" class="mr-1" [rounded]="true" [text]="true"
+                                pTooltip="Limpiar filtros" tooltipPosition="bottom"
+                                (click)="onFilterReset()"></p-button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <p-table [value]="packets.data" [tableStyle]="{ 'min-width': '50rem' }">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th>PAQUETE</th>
+                            <th>ESTADO</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-packet>
+                        <tr>
+                            <td class="w-6">{{ packet.name }}</td>
+                            @if (packet.status === true) {
+                            <td class="w-3">
+                                <span [class]="'customer-badge status-qualified'">Activo</span>
+                            </td>
+                            }@else {
+                            <td class="w-3">
+                                <span [class]="'customer-badge status-unqualified'">Inactivo</span>
+                            </td>
+                            }
+                            <td>
+                                <button pButton pRipple type="button" icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-text" pTooltip="Editar usuario"
+                                    tooltipPosition="bottom"
+                                    [routerLink]="['/configuration/packets/update', packet.id]"></button>
+                                <button pButton pRipple type="button" icon="pi pi-trash"
+                                    class="p-button-rounded p-button-danger p-button-text" pTooltip="Eliminar usuario"
+                                    tooltipPosition="bottom" (click)="onConfirmDeletePacket($event, packet.id)"></button>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </div>
+            <div class="card flex justify-content-center">
+                <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="packetFilters.limit"
+                    [totalRecords]="packets.total_data"></p-paginator>
+            </div>
+        </div>
+    </div>
+</div>

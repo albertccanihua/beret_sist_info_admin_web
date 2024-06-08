@@ -1,0 +1,186 @@
+<script src="patients-list.component.ts"></script>
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <h3>Importación de Base de Datos</h3>
+    <div class="mt-4">
+        <p-fileUpload (onSelect)="onPickFile($event)" (onRemove)="isFileSelected = false"
+            (onClear)="isFileSelected = false" (onBeforeUpload)="onUploadData()" [multiple]="false"
+            [maxFileSize]="100000000" chooseLabel="Seleccionar" uploadLabel="Subir" cancelLabel="Cancelar"
+            class="border-noround">
+        </p-fileUpload>
+    </div>
+
+    @if(isLoadingData){
+        <p-messages [(value)]="messages" [enableService]="false" [closable]="false" />
+    }
+
+    <div class="card border-round-md mt-3">
+        @if (isFileSelected) {
+        <p-table [value]="dataToUploadForShowing" [tableStyle]="{ 'min-width': '50rem' }" [resizableColumns]="true">
+            <ng-template pTemplate="header">
+                <tr>
+                    <th>id</th>
+                    <th>id_cita</th>
+                    <th>anio</th>
+                    <th>mes</th>
+                    <th>dia</th>
+                    <th>fecha_atencion</th>
+                    <th>lote</th>
+                    <th>num_pag</th>
+                    <th>num_reg</th>
+                    <th>id_ups</th>
+                    <th>descripcion_ups</th>
+                    <th>descripcion_sector</th>
+                    <th>descripcion_disa</th>
+                    <th>descripcion_red</th>
+                    <th>descripcion_microred</th>
+                    <th>codigo_unico</th>
+                    <th>nombre_establecimiento</th>
+                    <th>abrev_tipo_doc_paciente</th>
+                    <th>numero_documento_paciente</th>
+                    <th>apellido_paterno_paciente</th>
+                    <th>apellido_materno_paciente</th>
+                    <th>nombres_paciente</th>
+                    <th>fecha_nacimiento_paciente</th>
+                    <th>genero</th>
+                    <th>id_etnia</th>
+                    <th>descripcion_etnia</th>
+                    <th>historia_clinica</th>
+                    <th>ficha_familiar</th>
+                    <th>id_financiador</th>
+                    <th>descripcion_financiador</th>
+                    <th>descripcion_pais</th>
+                    <th>abrev_tipo_doc_personal</th>
+                    <th>numero_documento_personal</th>
+                    <th>apellido_paterno_personal</th>
+                    <th>apellido_materno_personal</th>
+                    <th>nombres_personal</th>
+                    <th>fecha_nacimiento_personal</th>
+                    <th>id_condicion</th>
+                    <th>descripcion_condicion</th>
+                    <th>id_profesion</th>
+                    <th>descripcion_profesion</th>
+                    <th>id_colegio</th>
+                    <th>descripcion_colegio</th>
+                    <th>numero_colegiatura</th>
+                    <th>abrev_tipo_doc_registrador</th>
+                    <th>numero_document_registrador</th>
+                    <th>apellido_paterno_registrador</th>
+                    <th>apellido_materno_registrador</th>
+                    <th>nombres_registrador</th>
+                    <th>fecha_nacimiento_registrador</th>
+                    <th>id_condicion_establecimiento</th>
+                    <th>id_condicion_servicio</th>
+                    <th>edad_reg</th>
+                    <th>tipo_edad</th>
+                    <th>anio_actual_paciente</th>
+                    <th>mes_actual_paciente</th>
+                    <th>dia_actual_paciente</th>
+                    <th>id_turno</th>
+                    <th>codigo_paquete</th>
+                    <th>codigo_item</th>
+                    <th>descripcion_item</th>
+                    <th>tipo_diagnostico</th>
+                    <th>valor_lab</th>
+                    <th>id_correlativo</th>
+                    <th>peso</th>
+                    <th>talla</th>
+                    <th>hemoglobina</th>
+                    <th>perimetro_abdominal</th>
+                    <th>perimetro_cefalico</th>
+                    <th>descripcion_otra_condicion</th>
+                    <th>fecha_ultima_regla</th>
+                    <th>fecha_solicitud_hb</th>
+                    <th>fecha_resultado_hb</th>
+                    <th>fecha_registro</th>
+                    <th>fecha_modificacion</th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-data>
+                <tr>
+                    <td>{{data?.id}}</td>
+                    <td>{{data?.id_cita}}</td>
+                    <td>{{data?.anio}}</td>
+                    <td>{{data?.mes}}</td>
+                    <td>{{data?.dia}}</td>
+                    <td>{{data?.fecha_atencion}}</td>
+                    <td>{{data?.lote}}</td>
+                    <td>{{data?.num_pag}}</td>
+                    <td>{{data?.num_reg}}</td>
+                    <td>{{data?.id_ups}}</td>
+                    <td>{{data?.descripcion_ups}}</td>
+                    <td>{{data?.descripcion_sector}}</td>
+                    <td>{{data?.descripcion_disa}}</td>
+                    <td>{{data?.descripcion_red}}</td>
+                    <td>{{data?.descripcion_microred}}</td>
+                    <td>{{data?.codigo_unico}}</td>
+                    <td>{{data?.nombre_establecimiento}}</td>
+                    <td>{{data?.abrev_tipo_doc_paciente}}</td>
+                    <td>{{data?.numero_documento_paciente}}</td>
+                    <td>{{data?.apellido_paterno_paciente}}</td>
+                    <td>{{data?.apellido_materno_paciente}}</td>
+                    <td>{{data?.nombres_paciente}}</td>
+                    <td>{{data?.fecha_nacimiento_paciente}}</td>
+                    <td>{{data?.genero}}</td>
+                    <td>{{data?.id_etnia}}</td>
+                    <td>{{data?.descripcion_etnia}}</td>
+                    <td>{{data?.historia_clinica}}</td>
+                    <td>{{data?.ficha_familiar}}</td>
+                    <td>{{data?.id_financiador}}</td>
+                    <td>{{data?.descripcion_financiador}}</td>
+                    <td>{{data?.descripcion_pais}}</td>
+                    <td>{{data?.abrev_tipo_doc_personal}}</td>
+                    <td>{{data?.numero_documento_personal}}</td>
+                    <td>{{data?.apellido_paterno_personal}}</td>
+                    <td>{{data?.apellido_materno_personal}}</td>
+                    <td>{{data?.nombres_personal}}</td>
+                    <td>{{data?.fecha_nacimiento_personal}}</td>
+                    <td>{{data?.id_condicion}}</td>
+                    <td>{{data?.descripcion_condicion}}</td>
+                    <td>{{data?.id_profesion}}</td>
+                    <td>{{data?.descripcion_profesion}}</td>
+                    <td>{{data?.id_colegio}}</td>
+                    <td>{{data?.descripcion_colegio}}</td>
+                    <td>{{data?.numero_colegiatura}}</td>
+                    <td>{{data?.abrev_tipo_doc_registrador}}</td>
+                    <td>{{data?.numero_document_registrador}}</td>
+                    <td>{{data?.apellido_paterno_registrador}}</td>
+                    <td>{{data?.apellido_materno_registrador}}</td>
+                    <td>{{data?.nombres_registrador}}</td>
+                    <td>{{data?.fecha_nacimiento_registrador}}</td>
+                    <td>{{data?.id_condicion_establecimiento}}</td>
+                    <td>{{data?.id_condicion_servicio}}</td>
+                    <td>{{data?.edad_reg}}</td>
+                    <td>{{data?.tipo_edad}}</td>
+                    <td>{{data?.anio_actual_paciente}}</td>
+                    <td>{{data?.mes_actual_paciente}}</td>
+                    <td>{{data?.dia_actual_paciente}}</td>
+                    <td>{{data?.id_turno}}</td>
+                    <td>{{data?.codigo_item}}</td>
+                    <td>{{data?.descripcion_item}}</td>
+                    <td>{{data?.tipo_diagnostico}}</td>
+                    <td>{{data?.valor_lab}}</td>
+                    <td>{{data?.id_correlativo}}</td>
+                    <td>{{data?.peso}}</td>
+                    <td>{{data?.talla}}</td>
+                    <td>{{data?.hemoglobina}}</td>
+                    <td>{{data?.perimetro_abdominal}}</td>
+                    <td>{{data?.perimetro_cefalico}}</td>
+                    <td>{{data?.descripcion_otra_condicion}}</td>
+                    <td>{{data?.fecha_ultima_regla}}</td>
+                    <td>{{data?.fecha_solicitud_hb}}</td>
+                    <td>{{data?.fecha_resultado_hb}}</td>
+                    <td>{{data?.fecha_registro}}</td>
+                    <td>{{data?.fecha_modificacion}}</td>
+                </tr>
+            </ng-template>
+        </p-table>
+        <div class="mt-3">
+            <p-paginator (onPageChange)="onPageChange($event)" [first]="first" [rows]="100"
+                [totalRecords]="dataToUpload.length"></p-paginator>
+        </div>
+        }
+    </div>
+    <p-scrollTop styleClass="custom-scrolltop" [threshold]="100" icon="pi pi-arrow-up"></p-scrollTop>
+</div>

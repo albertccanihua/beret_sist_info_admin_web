@@ -1,0 +1,41 @@
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <h3>Seguimiento por Profesional</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="mt-2 mb-2">
+                <div class="card">
+                    <div class="grid">
+                        <div class="col-12">
+                            <p-calendar [(ngModel)]="dateFilter" class="w-full" dateFormat="dd-mm-yy" />
+                            <p-dropdown [(ngModel)]="userFilter" inputId="drpTypeRole" placeholder="Profesional"
+                                class="ml-3" [style]="{'minWidth':'20%'}" [options]="users" optionLabel="fullname"
+                                optionValue="id"></p-dropdown>
+                            <p-button icon="pi pi-search" label="Buscar" class="ml-3" (click)="onSearch()"></p-button>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <p-table [value]="[treatmentFollowUp]" [tableStyle]="{ 'min-width': '50rem' }">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th class="text-center">N° DE PACIENTES ATENDIDOS POR TURNO</th>
+                                <th class="text-center">N° DE PACIENTES ATENDIDOS POR MES</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-treatmentFollowUp>
+                            <tr>
+                                <td class="text-center">
+                                    <h2>{{treatmentFollowUp.treatments_per_day}}</h2>
+                                </td>
+                                <td class="text-center">
+                                    <h2>{{treatmentFollowUp.treatments_per_month}}</h2>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+    </div>

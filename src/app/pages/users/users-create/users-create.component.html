@@ -1,0 +1,203 @@
+<p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
+
+<div class="card mt-3">
+    <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-outlined"
+            routerLink="/users/administration"></button>
+    <h3>Registrar nuevo Usuario</h3>
+    <div class="grid">
+        <div class="col-12">
+            <div class="card p-fluid mt-3">
+                <form [formGroup]="createUserForm">
+                    <div class="grid p-fluid mt-1">
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-dropdown formControlName="type_document" inputId="drpTypeDocument"
+                                            [options]="typeDocuments"
+                                            optionLabel="name" optionValue="id"></p-dropdown>
+                                <label>Tipo de documento <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['type_document'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['type_document'].touched
+                            || createUserForm.controls['type_document'].dirty)) {
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['type_document'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtDocumentNumber" pInputText formControlName="document_number"/>
+                                <label for="txtDocumentNumber">N° de documento <span
+                                        class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['document_number'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['document_number'].touched
+                            || createUserForm.controls['document_number'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['document_number'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            @if(createUserForm.controls['document_number'].errors?.['minlength']){
+                            <span class="text-danger">El mínimo de caracteres es de 8.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtName" pInputText formControlName="name"/>
+                                <label for="txtName">Nombre <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['name'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['name'].touched
+                            || createUserForm.controls['name'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['name'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtPaternalSurname" pInputText
+                                       formControlName="paternal_surname"/>
+                                <label for="txtPaternalSurname">Apellido paterno <span
+                                        class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['paternal_surname'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['paternal_surname'].touched
+                            || createUserForm.controls['paternal_surname'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['paternal_surname'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtMaternalLastname" pInputText
+                                       formControlName="maternal_lastname"/>
+                                <label for="txtMaternalLastname">Apellido materno</label>
+                            </span>
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-inputMask mask="99/99/9999" inputId="txtDob" formControlName="dob"></p-inputMask>
+                                <label>Fecha de nacimiento</label>
+                            </span>
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtEmail" pInputText formControlName="email"/>
+                                <label for="txtEmail">Correo electrónico:</label>
+                            </span>
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtPhoneNumber" pInputText formControlName="phone_number"/>
+                                <label for="txtPhoneNumber">Número de teléfono:</label>
+                            </span>
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-dropdown formControlName="type_gender" inputId="drpTypeGender"
+                                            [options]="typeGenders"
+                                            optionLabel="name" optionValue="id"></p-dropdown>
+                                <label>Genero <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['type_gender'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['type_gender'].touched
+                            || createUserForm.controls['type_gender'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['type_gender'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="text" id="txtUsername" pInputText formControlName="username"/>
+                                <label for="txtUsername">Usuario <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['username'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['username'].touched
+                            || createUserForm.controls['username'].dirty)) {
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['username'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="password" id="txtPassword" pInputText formControlName="password"/>
+                                <label for="txtPassword">Contraseña <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['password'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['password'].touched
+                            || createUserForm.controls['password'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['password'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            @if(createUserForm.controls['password'].errors?.['minlength']){
+                            <span class="text-danger">El mínimo de caracteres es de 6.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <input type="password" id="txtConfirmPassword" pInputText
+                                       formControlName="confirm_password"/>
+                                <label for="txtConfirmPassword">Confirmar contraseña <span
+                                        class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['confirm_password'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['confirm_password'].touched
+                            || createUserForm.controls['confirm_password'].dirty)) {
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['confirm_password'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            @if(createUserForm.controls['confirm_password'].errors?.['minlength']){
+                            <span class="text-danger">El mínimo de caracteres es de 6.</span>
+                            }
+                            @if(createUserForm.controls['confirm_password'].errors?.['passwordsNotEqual']){
+                            <span class="text-danger">Las contraseñas no coinciden.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
+                                <p-dropdown formControlName="type_role" inputId="drpTypeRole" [options]="typeRoles"
+                                            optionLabel="name" optionValue="id"></p-dropdown>
+                                <label>Rol <span class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createUserForm.controls['type_role'].invalid &&
+                            (isFormSubmitted || createUserForm.controls['type_role'].touched
+                            || createUserForm.controls['type_role'].dirty)) {
+                            <small class="ng-dirty ng-invalid">
+                                @if(createUserForm.controls['type_role'].errors?.['required']){
+                            <span class="text-danger">El campo es requerido.</span>
+                            }
+                            </small>
+                            }
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="flex justify-content-center">
+                <p-button icon="pi pi-save" [loading]="isFormLoading" label="Guardar" class="mr-1"
+                          (click)="submitForm()" [disabled]="isFormLoading"></p-button>
+            </div>
+        </div>
+    </div>
+</div>
