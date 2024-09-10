@@ -79,6 +79,7 @@ export class MassiveUploadComponent {
         this.isLoadingData = true;
 
         this._massiveUploadService.send({
+          filename: 'modelo_sist_importacion.xlsx',
           user_creator: this.authenticatedUserId,
           items: this.dataToUpload
         }).subscribe({
