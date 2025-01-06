@@ -55,12 +55,36 @@ export class MassiveUploadComponent {
       const parsedData = xlsx.utils.sheet_to_json(sheet1, { raw: true });
 
       this.dataToUpload = parsedData.map((item: any, index: number) => {
-        return { id: index + 1, ...item };
+        return {
+          id: index + 1,
+          ...item,
+          fecha_atencion: this.convertirExcelANumeroSerial(item.fecha_atencion),
+          fecha_modificacion: this.convertirExcelANumeroSerial(item.fecha_modificacion),
+          fecha_nacimiento_paciente: this.convertirExcelANumeroSerial(item.fecha_nacimiento_paciente),
+          fecha_nacimiento_personal: this.convertirExcelANumeroSerial(item.fecha_nacimiento_personal)
+        };
       });
+
+      console.log(this.dataToUpload[0]);
+      console.log(this.convertirExcelANumeroSerial(parseInt(this.dataToUpload[0].fecha_atencion)));
 
       this.dataToUploadForShowing = this.dataToUpload.slice(0, 100);
       this.isFileSelected = true;
     }
+  }
+
+  convertirExcelANumeroSerial(serial: number | null): string {
+    if (serial == null) return "";
+
+    const fechaBase = new Date(1900, 0, 1);
+    const diasAdicionales = serial - 2;
+    fechaBase.setDate(fechaBase.getDate() + diasAdicionales);
+
+    const anio = fechaBase.getFullYear();
+    const mes = String(fechaBase.getMonth() + 1).padStart(2, '0'); // Meses van de 0 a 11
+    const dia = String(fechaBase.getDate()).padStart(2, '0'); // Asegurar formato de 2 dígitos
+
+    return `${anio}-${mes}-${dia}`;
   }
 
   onProgress(event: any) {

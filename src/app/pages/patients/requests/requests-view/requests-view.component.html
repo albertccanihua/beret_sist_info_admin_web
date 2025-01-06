@@ -16,7 +16,7 @@
                         <span class="p-float-label">
                             <input [value]="treatment?.code" type="text" id="txtTreatmentCode" pInputText
                                 [disabled]="true" />
-                            <label>Código de tratamiento</label>
+                            <label>Historial clínico</label>
                         </span>
                     </div>
                     <div class="field col-12">
@@ -29,9 +29,16 @@
                     </div>
                     <div class="field col-12">
                         <span class="p-float-label">
-                            <input [value]="treatment?.patient?.dob" type="text" id="txtDob" pInputText
-                                [disabled]="true" />
+                            <input [value]="treatment?.patient?.dob ?? 'No registrado'" type="text" id="txtDob"
+                                pInputText [disabled]="true" />
                             <label>Fecha de nacimiento</label>
+                        </span>
+                    </div>
+                    <div class="field col-12">
+                        <span class="p-float-label">
+                            <input [value]="patientAge ?? 'No registrado'" type="text" id="txtDob" pInputText
+                                [disabled]="true" />
+                            <label>Edad</label>
                         </span>
                     </div>
                     <div class="field col-12">
@@ -45,12 +52,12 @@
                         <span class="p-float-label">
                             <input [value]="treatment?.patient?.type_financing?.name" type="text" id="txtTypeFinancing"
                                 pInputText [disabled]="true" />
-                            <label>Financiación</label>
+                            <label>Financiamiento</label>
                         </span>
                     </div>
                     <div class="field col-12">
                         <span class="p-float-label">
-                            <input [value]="treatment?.acceptance_rate + '%'" type="text" id="txtAcceptanceRate"
+                            <input [value]="treatment?.acceptance_rate ?? '0' + '%'" type="text" id="txtAcceptanceRate"
                                 pInputText [disabled]="true" />
                             <label>T.A.</label>
                         </span>

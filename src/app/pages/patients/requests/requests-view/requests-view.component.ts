@@ -24,6 +24,7 @@ export class RequestsViewComponent {
     treatmentId: string;
     treatment: IShowTreatmentAPIResponse | undefined;
     treatmentCreatedAt: string = '';
+    patientAge: number = 0;
 
     constructor(
         private _treatmentService: TreatmentService,
@@ -48,6 +49,7 @@ export class RequestsViewComponent {
             this._treatmentService.show(params.get('id')!).subscribe(response => {
                 this.treatment = response.result;
                 this.treatmentCreatedAt = DateHelper.formatDate(this.treatment.created_at?.toString() ?? '');
+                this.patientAge = this.calculateAge(this.treatment.patient.dob);
 
                 if (this.treatment?.treatment_specialities) {
                     for (let x = 0; x < this.treatment.treatment_specialities.length; x++) {
@@ -70,5 +72,24 @@ export class RequestsViewComponent {
 
     viewAssistanceDetails(event: any, assistance) {
         this.overlayPanel.toggle(event);
+    }
+
+    calculateAge(dob: String | null): number {
+
+        if (dob == null) return 0;
+
+        const today = new Date();
+        const currentYear = today.getFullYear();
+        const currentMonth = today.getMonth();
+        const currentDay = today.getDate();
+
+        const bornYear: number = parseInt(dob.split('-')[0] ?? currentYear.toString());
+        const bornMonth: number = parseInt(dob.split('-')[1] ?? currentMonth.toString());
+        const bornDay: number = parseInt(dob.split('-')[2] ?? currentDay.toString());
+
+        let age = currentYear - bornYear;
+        if (currentMonth < bornMonth || (currentMonth === bornMonth && currentDay < bornDay)) age--;
+
+        return age;
     }
 }

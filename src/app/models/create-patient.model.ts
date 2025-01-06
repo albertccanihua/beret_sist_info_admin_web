@@ -3,6 +3,7 @@ import { ManagementType } from "./management-type.model";
 export class CreatePatientModel {
 
     public document_number: string;
+    public medical_history: string;
     public dob: string;
     public name: string;
     public paternal_surname: string;
@@ -17,6 +18,7 @@ export class CreatePatientModel {
 
     constructor() {
         this.document_number = '';
+        this.medical_history = '';
         this.dob = '';
         this.name = '';
         this.paternal_surname = '';
@@ -33,6 +35,7 @@ export class CreatePatientModel {
 
     reset() {
         this.document_number = '';
+        this.medical_history = '';
         this.dob = '';
         this.name = '';
         this.paternal_surname = '';

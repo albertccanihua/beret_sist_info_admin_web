@@ -33,7 +33,6 @@ export class ControlGeneralComponent {
     this.home = { icon: 'pi pi-home', routerLink: '/' };
 
     this.dateFilter = DateHelper.getCurrentFormatDate('es');
-    console.log(this.dateFilter);
   }
 
   // PAGE EVENTS

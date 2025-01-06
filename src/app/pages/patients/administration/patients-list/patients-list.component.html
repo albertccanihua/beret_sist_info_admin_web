@@ -51,6 +51,7 @@
                         <tr>
                             <th>PACIENTE</th>
                             <th>DOCUMENTO</th>
+                            <th>HISTORIA CLINICA</th>
                             <th>FINANCIAMIENTO</th>
                             <th>ESTADO</th>
                             <th>ACCIÓN</th>
@@ -60,6 +61,7 @@
                         <tr>
                             <td>{{ patient?.name + ' ' + patient?.paternal_surname }}</td>
                             <td>{{ patient?.type_document?.name + ' ' + patient?.document_number }}</td>
+                            <td>{{ patient?.medical_history }}</td>
                             <td>{{ patient?.type_financing?.name }}</td>
                             @if (patient.status === true) {
                             <td>

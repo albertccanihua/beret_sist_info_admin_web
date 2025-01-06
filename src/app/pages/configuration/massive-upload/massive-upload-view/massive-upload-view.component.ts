@@ -63,7 +63,6 @@ export class MassiveUploadViewComponent {
   }
 
   setOpen(item: MassiveUploadItem) {
-    console.log(item);
     this.visible = true;
     this._massiveUploadService.newMassiveUploadItem(item)
   }

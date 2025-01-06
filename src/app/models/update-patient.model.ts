@@ -4,6 +4,7 @@ export class UpdatePatientModel {
 
     public id: number;
     public document_number: string;
+    public medical_history: string;
     public dob: string;
     public name: string;
     public paternal_surname: string;
@@ -18,6 +19,7 @@ export class UpdatePatientModel {
     constructor() {
         this.id = null;
         this.document_number = '';
+        this.medical_history = '';
         this.dob = '';
         this.name = '';
         this.paternal_surname = '';

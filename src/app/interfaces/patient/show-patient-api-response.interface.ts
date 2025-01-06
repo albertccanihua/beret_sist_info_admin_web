@@ -3,6 +3,7 @@ import { IManagementType } from "../management-type/management-type.interface";
 export interface IShowPatientApiResponse {
     id: number;
     document_number: string;
+    medical_history: string;
     dob: string;
     name: string;
     paternal_surname: string;

@@ -18,9 +18,8 @@
                         [tableStyle]="{ 'min-width': '50rem' }">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th class="text-center">N° DE TRATAMIENTOS POR DÍA</th>
-                                <th class="text-center">N° DE TRATAMIENTOS POR MES</th>
-                                <th class="text-center">N° DE PACIENTES ATENDIDOS POR MES</th>
+                                <th class="text-center">N° DE TRATAMIENTOS ATENDIDOS POR DÍA</th>
+                                <th class="text-center">N° DE TRATAMIENTOS ATENDIDOS POR MES</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-treatmentFollowUp>
@@ -30,9 +29,6 @@
                                 </td>
                                 <td class="text-center">
                                     <h2>{{treatmentFollowUp.treatments_per_month}}</h2>
-                                </td>
-                                <td class="text-center">
-                                    <h2>{{treatmentFollowUp.requests_per_month}}</h2>
                                 </td>
                             </tr>
                         </ng-template>

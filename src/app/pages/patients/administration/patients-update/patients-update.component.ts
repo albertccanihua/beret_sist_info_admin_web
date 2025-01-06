@@ -1,14 +1,14 @@
-import {Component} from '@angular/core';
-import {MenuItem, MessageService} from "primeng/api";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Component } from '@angular/core';
+import { MenuItem, MessageService } from "primeng/api";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import {
     IGetManagementTypesApiResponse
 } from "../../../../interfaces/management-type/get-management-types-api-response.interface";
-import {ManagementTypeService} from "../../../../services/management-type/management-type.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {IApiResponse} from "../../../../interfaces/api-response.interface";
-import {DateHelper} from "../../../../helpers/date.helper";
-import {PatientService} from "../../../../services/patient/patient.service";
+import { ManagementTypeService } from "../../../../services/management-type/management-type.service";
+import { ActivatedRoute, Router } from "@angular/router";
+import { IApiResponse } from "../../../../interfaces/api-response.interface";
+import { DateHelper } from "../../../../helpers/date.helper";
+import { PatientService } from "../../../../services/patient/patient.service";
 
 @Component({
     selector: 'app-patients-update',
@@ -28,7 +28,7 @@ export class PatientsUpdateComponent {
     typeDocuments: IGetManagementTypesApiResponse[] = [];
     typeGenders: IGetManagementTypesApiResponse[] = [];
     typeFinancing: IGetManagementTypesApiResponse[] = [];
-    typeStatus: any[] = [{name: 'Activo', id: true}, {name: 'Inactivo', id: false}];
+    typeStatus: any[] = [{ name: 'Activo', id: true }, { name: 'Inactivo', id: false }];
 
     constructor(
         private _patientService: PatientService,
@@ -39,6 +39,7 @@ export class PatientsUpdateComponent {
     ) {
         this.updatePatientForm = new FormGroup({
             document_number: new FormControl('', [Validators.required, Validators.minLength(8)]),
+            medical_history: new FormControl('', [Validators.required]),
             dob: new FormControl('', [Validators.required]),
             name: new FormControl('', [Validators.required]),
             paternal_surname: new FormControl('', [Validators.required]),
@@ -54,11 +55,11 @@ export class PatientsUpdateComponent {
 
     ngOnInit() {
         this.menuBreadcrumb = [
-            {label: 'Pacientes'},
-            {label: 'Administración', routerLink: '/patients/administration'},
-            {label: 'Actualizar'}
+            { label: 'Pacientes' },
+            { label: 'Administración', routerLink: '/patients/administration' },
+            { label: 'Actualizar' }
         ];
-        this.home = {icon: 'pi pi-home', routerLink: '/'};
+        this.home = { icon: 'pi pi-home', routerLink: '/' };
 
         this.getManagementTypes();
         this.showPatient();
@@ -69,9 +70,9 @@ export class PatientsUpdateComponent {
             this.patientId = params.get('id')!;
             this._patientService.show(params.get('id')!).subscribe((data) => {
                 if (data.code == 200) {
-                    console.log(data.result);
                     this.updatePatientForm.setValue({
                         document_number: data.result.document_number,
+                        medical_history: data.result.medical_history,
                         dob: DateHelper.invertDate(data.result.dob, '-', '/'),
                         name: data.result.name,
                         paternal_surname: data.result.paternal_surname,
@@ -89,13 +90,13 @@ export class PatientsUpdateComponent {
     }
 
     private getManagementTypes() {
-        this._managementTypeService.get({type: 'type_document', status: 1}).subscribe((data: IApiResponse<IGetManagementTypesApiResponse[]>) => {
+        this._managementTypeService.get({ type: 'type_document', status: 1 }).subscribe((data: IApiResponse<IGetManagementTypesApiResponse[]>) => {
             this.typeDocuments = data.result;
         });
-        this._managementTypeService.get({type: 'type_gender', status: 1}).subscribe((data: IApiResponse<IGetManagementTypesApiResponse[]>) => {
+        this._managementTypeService.get({ type: 'type_gender', status: 1 }).subscribe((data: IApiResponse<IGetManagementTypesApiResponse[]>) => {
             this.typeGenders = data.result;
         });
-        this._managementTypeService.get({type: 'type_financing', status: 1}).subscribe((data: IApiResponse<IGetManagementTypesApiResponse[]>) => {
+        this._managementTypeService.get({ type: 'type_financing', status: 1 }).subscribe((data: IApiResponse<IGetManagementTypesApiResponse[]>) => {
             this.typeFinancing = data.result;
         });
     }
@@ -112,6 +113,7 @@ export class PatientsUpdateComponent {
                 this._patientService.update({
                     id: this.patientId,
                     document_number: this.updatePatientForm.value.document_number,
+                    medical_history: this.updatePatientForm.value.medical_history,
                     dob: DateHelper.invertDate(this.updatePatientForm.value.dob, '/', '-'),
                     name: this.updatePatientForm.value.name,
                     paternal_surname: this.updatePatientForm.value.paternal_surname,
@@ -124,7 +126,7 @@ export class PatientsUpdateComponent {
                     type_financing: this.updatePatientForm.value.type_financing
                 }).subscribe((response) => {
                     if (response.code === 200) {
-                        this.messageService.add({severity: 'success', summary: 'Genial', detail: 'El paciente se actualizó correctamente', closable: true});
+                        this.messageService.add({ severity: 'success', summary: 'Genial', detail: 'El paciente se actualizó correctamente', closable: true });
                         this.isFormLoading = false;
                         this.router.navigateByUrl('/patients/administration');
                     }

@@ -40,6 +40,7 @@ export class PatientsCreateComponent {
     ) {
         this.createPatientForm = new FormGroup({
             document_number: new FormControl('', [Validators.required, Validators.minLength(8)]),
+            medical_history: new FormControl('', [Validators.required]),
             name: new FormControl('', [Validators.required]),
             paternal_surname: new FormControl('', [Validators.required]),
             maternal_lastname: new FormControl(''),
@@ -91,6 +92,7 @@ export class PatientsCreateComponent {
             try {
                 this._patientService.create({
                     document_number: this.createPatientForm.value.document_number,
+                    medical_history: this.createPatientForm.value.medical_history,
                     name: this.createPatientForm.value.name,
                     paternal_surname: this.createPatientForm.value.paternal_surname,
                     maternal_lastname: this.createPatientForm.value.maternal_lastname,

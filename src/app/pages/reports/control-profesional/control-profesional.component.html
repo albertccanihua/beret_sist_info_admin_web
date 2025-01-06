@@ -1,7 +1,7 @@
 <p-breadcrumb class="max-w-full" [model]="menuBreadcrumb" [home]="home"></p-breadcrumb>
 
 <div class="card mt-3">
-    <h3>Seguimiento por Profesional</h3>
+    <h3>Control por Profesional</h3>
     <div class="grid">
         <div class="col-12">
             <div class="mt-2 mb-2">
@@ -20,8 +20,8 @@
                     <p-table [value]="[treatmentFollowUp]" [tableStyle]="{ 'min-width': '50rem' }">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th class="text-center">N° DE PACIENTES ATENDIDOS POR TURNO</th>
-                                <th class="text-center">N° DE PACIENTES ATENDIDOS POR MES</th>
+                                <th class="text-center">N° DE TRATAMIENTOS ATENDIDOS POR TURNO</th>
+                                <th class="text-center">N° DE TRATAMIENTOS ATENDIDOS POR MES</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-treatmentFollowUp>

@@ -47,6 +47,23 @@
                         </div>
                         <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
                             <span class="p-float-label">
+                                <input type="text" id="txtMedicalHistory" pInputText
+                                    formControlName="medical_history" />
+                                <label for="txtMedicalHistory">Historia clínica <span
+                                        class="text-danger">(*)</span></label>
+                            </span>
+                            @if(createPatientForm.controls['medical_history'].invalid &&
+                            (isFormSubmitted || createPatientForm.controls['medical_history'].touched
+                            || createPatientForm.controls['medical_history'].dirty)){
+                            <small class="ng-dirty ng-invalid">
+                                @if(createPatientForm.controls['medical_history'].errors?.['required']){
+                                <span class="text-danger">El campo es requerido.</span>
+                                }
+                            </small>
+                            }
+                        </div>
+                        <div class="field xl:col-md-4 lg:col-md-4 md:col-6 sm:col-12 col-12">
+                            <span class="p-float-label">
                                 <input type="text" id="txtName" pInputText formControlName="name"/>
                                 <label for="txtName">Nombre <span class="text-danger">(*)</span></label>
                             </span>
